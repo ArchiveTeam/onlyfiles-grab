@@ -214,7 +214,9 @@ wget.callbacks.get_urls = function(file, url, is_css, iri)
   end
 
   if allowed(url)
-    and status_code < 300 then
+    and status_code < 300
+    and not string.match(url, "/get/")
+    and not string.match(url, "/download/") then
     html = read_file(file)
     for newurl in string.gmatch(string.gsub(html, "&quot;", '"'), '([^"]+)') do
       checknewurl(newurl)
